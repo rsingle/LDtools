@@ -19,7 +19,7 @@
 #'
 #' @param r2.threshold A threshold for plotting based on the fit of the regression line.
 #'    If the R-squared value is less than r2.threshold, no plot is created (default=0.75)
-
+#'
 #' @return A series of plots are created. The return value is a dataframe with the following components:
 #'  \tabular{ll}{
 #'  \code{focal}	\tab the focal allele at the 1st locus.\cr
