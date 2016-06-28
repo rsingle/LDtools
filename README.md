@@ -50,7 +50,7 @@ This is an example of DPA using haplotype frequencies from Williams et al. (2004
 data(NIreland.freqs)
 loc1 <- "A"
 loc2 <- "B"
-temp.dat <- ni.dat[ni.dat$locus1==loc1 & ni.dat$locus2==loc2,]
+temp.dat <- NIreland.freqs[NIreland.freqs$locus1==loc1 & NIreland.freqs$locus2==loc2,]
 DPAplot(dat=temp.dat, y.threshold=.005, r2.threshold=.70)
 #Create a file with several DPA plots for the chosen loci
 postscript(file="Irish_A-B.ps", horizontal=T)
