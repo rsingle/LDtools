@@ -10,9 +10,9 @@ info about DPA ...
 
 ### Usage
 
-To compute ALD in a data set, you can use the function **compute.ALD** within the asymLD package, as follows:
+The **DPAplot** function generates plots and summary measures realted to Disequilibrium Pattern Analysis (DPA), as follows:
 ```S
-ald.results <- compute.ALD(dat, tolerance = 0.005)
+dpa.results <- DPAplot(dat=dat, y.threshold=.005, r2.threshold=.70, tolerance=.01)
 ```
 
 Parameter **dat** is a data.frame with 5 required variables:
@@ -25,59 +25,37 @@ Parameter **dat** is a data.frame with 5 required variables:
 
 Parameter **tolerance** is a threshold for the sum of the haplotype frequencies. If the sum of the haplotype frequencies is greater than 1+tolerance or less than 1-tolerance an error is returned.
 
-Parameter **symm** is an indicator for whether to compute symmetric measures Dprime & Wn (default=FALSE)
+Parameter **y.threshold** is a threshold for plotting based on the maximum expected freq. If the maximum expected freq is less than y.threshold, no plot is created (default=0.005)
 
-The function returns a dataframe (in the above example **ald.results**) with the following components:
+Parameter **r2.threshold** A threshold for plotting based on the fit of the regression line. If the R-squared value is less than r2.threshold, no plot is created (default=0.75)
 
-- *locus1*	The name of the first locus.
-- *locus2*	The name of the second locus.
-- *F.1*	Homozygosity (expected under HWP) for locus 1.
-- *F.1.2*	Conditional homozygosity for locus1 given locus2.
-- *F.2*	Homozygosity (expected under HWP) for locus 2.
-- *F.2.1*	Conditional homozygosity for locus2 given locus1.
-- *ALD.1.2*	Asymmetric LD for locus1 given locus2.
-- *ALD.2.1*	Asymmetric LD for locus2 given locus1.
+The function returns a dataframe (in the above example **dpa.results**) with the following components:
 
+- *focal*	 the focal allele at the 1st locus.
+- *select*	 the potentially selected allele at the 2nd locus.
+- *r2.lt0*	 the R^2 value in the negative D-space.
+- *maxdij*	 the maximum d_ij value.
+- *exp.frq.max.d*	 the expected freq corresponding to the value with maxdij.
+- *prop.gt0*	 the proportion of points with d_ij > 0.
+- *n.gt.halfmax.d*  the # of points with d_ij > .5*maxdij.
+- *fold.inc*  the fold increase in frequency for the potentially selected haplotype: (hapfreq - expfreq)/expfreq.
 
 ### Examples
 
 #### Example 1. HLA frequencies
 
-This is an example of ALD measure using haplotype frequencies from Wilson (2010)
+This is an example of DPA using haplotype frequencies from Williams et al. (2004)
 
 ```r
-library(asymLD)
-data(hla.freqs)
-hla.a_b <- hla.freqs[hla.freqs$locus1=="A" & hla.freqs$locus2=="B",]
-head(hla.a_b)
+data(NIreland.freqs)
+loc1 <- "A"
+loc2 <- "B"
+temp.dat <- ni.dat[ni.dat$locus1==loc1 & ni.dat$locus2==loc2,]
+DPAplot(dat=temp.dat, y.threshold=.005, r2.threshold=.70)
+#Create a file with several DPA plots for the chosen loci
+postscript(file="Irish_A-B.ps", horizontal=T)
+par(mfrow=c(2,2))
+DPAplot(dat=temp.dat, y.threshold=.005, r2.threshold=.70)
+dev.off()
 ```
 
-```
-##     haplo.freq locus1 locus2 allele1 allele2
-## 170    0.06189      A      B    0101    0801
-## 171    0.04563      A      B    0201    4402
-## 172    0.04318      A      B    0301    0702
-## 173    0.03103      A      B    0201    4001
-## 174    0.02761      A      B    0301    3501
-## 175    0.01929      A      B    0205    1503
-```
-
-```r
-compute.ALD(hla.a_b)
-```
-
-```
-##   locus1 locus2       F.1    F.1.2        F.2     F.2.1   ALD.1.2  ALD.2.1
-## 1      A      B 0.1021811 0.340332 0.04876543 0.1903394 0.5150291 0.3857872
-```
-
-```r
-hla.c_b <- hla.freqs[hla.freqs$locus1=="C" & hla.freqs$locus2=="B",]
-compute.ALD(hla.c_b)
-```
-```
-##   locus1 locus2        F.1     F.1.2        F.2     F.2.1   ALD.1.2    ALD.2.1
-## 1      C      B 0.08637241 0.7350216 0.05040254 0.4520268 0.8425979  0.6503396
-```
-
-Note that there is substantially less variablity (higher ALD) for HLA\*C conditional on HLA\*B than for HLA\*B conditional on HLA\*C, indicating that the overall variation for C is relatively low given specific B alleles.
