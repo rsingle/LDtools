@@ -1,0 +1,12 @@
+Package: LDtools
+Type: Package
+Title: Tools for Linkage Disequilibrium 
+Version: 0.1
+Date: 2016-06-28
+Author: Richard M. Single
+Maintainer: Richard M. Single <rsingle@uvm.edu>
+Suggests: haplo.stats
+LazyLoad: Yes
+Description: LD measures and plots for detecting selection
+License: GPL-2
+
