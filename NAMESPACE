@@ -2,4 +2,5 @@
 
 export(DPAplot)
 export(lsort)
-importFrom(stats,aggregate)
+importFrom(stats, aggregate, lm)
+importFrom("graphics", "abline", "plot", "text", "title")

@@ -54,6 +54,7 @@ library(LDtools)
 
 # An example using the Northern Ireland data from Williams et al.(2004)
 data(NIreland.freqs)
+ni.dat <- NIreland.freqs
 loc1 <- "A"
 loc2 <- "B"
 temp.dat <- ni.dat[ni.dat$locus1==loc1 & ni.dat$locus2==loc2,]
