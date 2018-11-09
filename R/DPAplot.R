@@ -49,7 +49,7 @@
 #' temp.dat <- ni.dat[ni.dat$locus1==loc1 & ni.dat$locus2==loc2,]
 #' DPAplot(dat=temp.dat, y.threshold=.005, r2.threshold=.70)
 #' #Create a file with several DPA plots for the chosen loci
-#' postscript(file="Irish_A-B.ps", horizontal=T)
+#' postscript(file="Irish_A-B.ps", horizontal=TRUE)
 #' par(mfrow=c(2,2))
 #' DPAplot(dat=temp.dat, y.threshold=.005, r2.threshold=.70)
 #' dev.off()
@@ -119,8 +119,8 @@ DPAplot <- function(dat, y.threshold=.005, r2.threshold=.75, tolerance=0.01)
   af2 <- aggregate(dat$haplo.freq, by = by.vars2, FUN = sum)
   names(af1)[length(names(af1))] <- "allele.freq1"
   names(af2)[length(names(af2))] <- "allele.freq2"
-  mrg1 <- merge(dat, af1, by.x = c("allele1"), by.y = c("allele1"), all.x = T, all.y = F)
-  mrg2 <- merge(mrg1, af2, by.x = c("allele2"), by.y = c("allele2"), all.x = T, all.y = F)
+  mrg1 <- merge(dat, af1, by.x = c("allele1"), by.y = c("allele1"), all.x = TRUE, all.y = FALSE)
+  mrg2 <- merge(mrg1, af2, by.x = c("allele2"), by.y = c("allele2"), all.x = TRUE, all.y = FALSE)
   dat <- mrg2
 
   # compute LD coefficients and expected HF under no LD
