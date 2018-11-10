@@ -9,4 +9,4 @@ Suggests: haplo.stats
 LazyLoad: Yes
 Description: LD measures and plots for detecting selection
 License: GPL-2
-
+RoxygenNote: 6.1.0
