@@ -55,6 +55,7 @@
 #' dev.off()
 #'
 #' #' # An example using haplotype frequencies from Wilson(2010)
+#' library(asymLD)
 #' data(hla.freqs)
 #' hla.a_b <- hla.freqs[hla.freqs$locus1=="A" & hla.freqs$locus2=="B",]
 #' compute.ALD(hla.a_b)
