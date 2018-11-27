@@ -54,16 +54,6 @@
 #' DPAplot(dat=temp.dat, y.threshold=.005, r2.threshold=.70)
 #' dev.off()
 #'
-#' #' # An example using haplotype frequencies from Wilson(2010)
-#' library(asymLD)
-#' data(hla.freqs)
-#' hla.a_b <- hla.freqs[hla.freqs$locus1=="A" & hla.freqs$locus2=="B",]
-#' compute.ALD(hla.a_b)
-#' hla.freqs$locus <- paste(hla.freqs$locus1, hla.freqs$locus2, sep="-")
-#' compute.ALD(hla.freqs[hla.freqs$locus=="C-B",])
-#' # Note: additonal columns on the input dataframe (e.g., "locus" above) are allowed, but 
-#' # ignored by the function.
-#' 
 #' # An example using genotype data from the haplo.stats package
 #' require(haplo.stats)
 #' data(hla.demo)
